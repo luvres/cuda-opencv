@@ -20,7 +20,7 @@ RUN \
 	&& mkdir /root/notebooks \
   \
   # cmake
-	&& CMAKE_VERSION="3.16.8" \
+	&& CMAKE_VERSION="3.21.1" \
 	&& curl -L https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz \
 			| tar zxf - -C . \
 	&& cd cmake-${CMAKE_VERSION} \
