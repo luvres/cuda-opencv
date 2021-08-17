@@ -20,7 +20,7 @@ RUN \
 	&& mkdir /root/notebooks \
   \
   # cmake
-	&& CMAKE_VERSION="3.16.8" \
+	&& CMAKE_VERSION="3.21.1" \
 	&& curl -L https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz \
 			| tar zxf - -C . \
 	&& cd cmake-${CMAKE_VERSION} \
@@ -33,7 +33,7 @@ RUN \
 	&& cd && rm cmake-${CMAKE_VERSION} -fR \
   \
   # OpenCV
-	&& OPENVC_VERSION="4.3.0" \
+	&& OPENVC_VERSION="4.4.0" \
 	&& curl -L https://github.com/opencv/opencv_contrib/archive/${OPENVC_VERSION}.tar.gz \
 			| tar xzf - -C /usr/local \
 	&& mv /usr/local/opencv_contrib* /usr/local/opencv_contrib \
