@@ -7,8 +7,11 @@ RUN \
 	apt-get update && apt-get install -y \
 		curl cmake libssl-dev \
   \
-  # Anaconda3
-	&& ANACONDA_VERSION="2020.02" \
+  && apt-get clean && rm -rf /var/lib/apt/lists/* 
+
+# Anaconda3
+RUN \
+	ANACONDA_VERSION="2020.02" \
 	&& curl -L https://repo.continuum.io/archive/Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
 			-o Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
 	&& /bin/bash Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh -b -p /usr/local/anaconda3 \
@@ -17,10 +20,11 @@ RUN \
   \
 	&& pip install --upgrade pip \
   \
-	&& mkdir /root/notebooks \
-  \
-  # cmake
-	&& CMAKE_VERSION="3.16.8" \
+	&& mkdir /root/notebooks 
+
+# cmake
+RUN \
+	CMAKE_VERSION="3.16.8" \
 	&& curl -L https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz \
 			| tar zxf - -C . \
 	&& cd cmake-${CMAKE_VERSION} \
@@ -30,10 +34,11 @@ RUN \
 	&& apt-get remove -y cmake \
 	&& apt-get autoremove -y \
 	&& ln -s /usr/local/bin/cmake /usr/bin/cmake \
-	&& cd && rm cmake-${CMAKE_VERSION} -fR \
-  \
-  # OpenCV
-	&& OPENVC_VERSION="4.3.0" \
+	&& cd && rm cmake-${CMAKE_VERSION} -fR 
+
+# OpenCV
+RUN \
+	OPENVC_VERSION="4.3.0" \
 	&& curl -L https://github.com/opencv/opencv_contrib/archive/${OPENVC_VERSION}.tar.gz \
 			| tar xzf - -C /usr/local \
 	&& mv /usr/local/opencv_contrib* /usr/local/opencv_contrib \
@@ -108,7 +113,9 @@ RUN \
 	&& ln -s /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudart.so.10.2.89 \
 		/usr/local/cuda-10.2/lib64/libcudart.so.10.1 \
   \
-	&& cd && rm opencv-${OPENVC_VERSION} /usr/local/opencv_contrib -fR
+	&& cd && rm opencv-${OPENVC_VERSION} /usr/local/opencv_contrib -fR \
+  \
+	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 WORKDIR /root/notebooks
