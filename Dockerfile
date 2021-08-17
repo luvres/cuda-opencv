@@ -33,7 +33,7 @@ RUN \
 	&& cd && rm cmake-${CMAKE_VERSION} -fR \
   \
   # OpenCV
-	&& OPENVC_VERSION="4.3.0" \
+	&& OPENVC_VERSION="4.4.0" \
 	&& curl -L https://github.com/opencv/opencv_contrib/archive/${OPENVC_VERSION}.tar.gz \
 			| tar xzf - -C /usr/local \
 	&& mv /usr/local/opencv_contrib* /usr/local/opencv_contrib \
