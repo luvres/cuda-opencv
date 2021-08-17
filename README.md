@@ -93,3 +93,10 @@ http://localhost:8888/
 ```
 docker build -t izone/yolo:cuda-opencv-conda .
 ```
+```
+docker build -t izone/yolo:cu10.2-ocv4.4.0-python37 -f ./Dockerfile.cu102ocv440py37 .
+```
+```
+docker build -t izone/yolo:cu10.2-ocv4.3.0-python37 -f ./Dockerfile.cu102ocv430py37 .
+```
+
