@@ -108,7 +108,9 @@ RUN \
 	&& ln -s /usr/local/cuda-10.2/targets/x86_64-linux/lib/libcudart.so.10.2.89 \
 		/usr/local/cuda-10.2/lib64/libcudart.so.10.1 \
   \
-	&& cd && rm opencv-${OPENVC_VERSION} /usr/local/opencv_contrib -fR
+	&& cd && rm opencv-${OPENVC_VERSION} /usr/local/opencv_contrib -fR \
+	\
+	&& apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 
 WORKDIR /root/notebooks
