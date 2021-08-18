@@ -8,7 +8,7 @@ RUN \
 		curl cmake libssl-dev \
   \
   # Anaconda3
-	&& ANACONDA_VERSION="2020.02" \
+	&& ANACONDA_VERSION="2020.11" \
 	&& curl -L https://repo.continuum.io/archive/Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
 			-o Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
 	&& /bin/bash Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh -b -p /usr/local/anaconda3 \
@@ -68,16 +68,16 @@ RUN \
 		-DCUDA_ARCH_BIN='6.0 6.1 6.2 7.0 7.2 7.5' \
 		-DCUDA_ARCH_PTX="" \
 		-DPYTHON3_EXECUTABLE=/usr/local/anaconda3/bin/python \
-		-DPYTHON3_LIBRARY=/usr/local/anaconda3/lib/libpython3.7m.so \
+		-DPYTHON3_LIBRARY=/usr/local/anaconda3/lib/libpython3.8m.so \
 		-DPYTHON3_INCLUDE_DIRS=/usr/local/anaconda3/include \
-		-DPYTHON3_NUMPY_INCLUDE_DIRS=/usr/local/anaconda3/lib/python3.7/site-packages/numpy/core/include \
+		-DPYTHON3_NUMPY_INCLUDE_DIRS=/usr/local/anaconda3/lib/python3.8/site-packages/numpy/core/include \
   \
 	&& make -j$(nproc) \
 	&& make install \
   \
 	&& ln -s \
-		/usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so \
-		/usr/local/anaconda3/lib/python3.7/site-packages/cv2.so \
+		/usr/local/lib/python3.8/site-packages/cv2/python-3.8/cv2.cpython-37m-x86_64-linux-gnu.so \
+		/usr/local/anaconda3/lib/python3.8/site-packages/cv2.so \
   \
 	&& mv /usr/local/anaconda3/lib/libfontconfig.so.1 \
 		/usr/local/anaconda3/lib/libfontconfig.so.1.ORIG \
