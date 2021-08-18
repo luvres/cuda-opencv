@@ -1,7 +1,7 @@
 ## YOLO Environment
 ### CUDA 10.2 (cudnn7)
-### OpenCV 4.3.0 with cuda suport
-### Anaconda 2020.02 (Python 3.7.6)
+### OpenCV 4.4.0 with cuda suport
+### Anaconda 2020.11 (Python 3.8.5)
 -----
 ### Run
 
