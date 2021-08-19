@@ -94,6 +94,9 @@ http://localhost:8888/
 docker build -t izone/yolo:cuda-opencv-conda .
 ```
 ```
+docker build -t izone/yolo:cuda10.2-conda2021.05-ocv4.5.0 -f ./Dockerfile.cu102ocv450py38 .
+```
+```
 docker build -t izone/yolo:cuda10.2-conda2021.05-ocv4.4.0 -f ./Dockerfile.cu102ocv440py38 .
 ```
 ```
