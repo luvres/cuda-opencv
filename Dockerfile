@@ -1,7 +1,7 @@
 FROM nvidia/cuda:10.2-cudnn7-devel
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
-ENV CONDA_DIR="/usr/local/conda/"
+ENV CONDA_DIR="/usr/local/conda"
 ENV PATH="${CONDA_DIR}/bin:${PATH}"
 
 RUN \
@@ -12,10 +12,12 @@ RUN \
 	&& CONDA_VERSION="4.10.3-4" \
 	&& curl -L https://github.com/conda-forge/miniforge/releases/download/${CONDA_VERSION}/Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh -o Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh \
 	&& /bin/bash Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh -b -p ${CONDA_DIR} \
-	&& ln -s ${CONDA_DIR}/ /opt/conda \
+	&& ln -s ${CONDA_DIR} /opt/conda \
 	&& rm Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh \
 	\
 	&& pip install --upgrade pip && pip install --no-cache numpy \
+	\
+	&& conda install -y fontconfig pango \
 	\
 	&& mkdir /root/notebooks \
   \
@@ -79,12 +81,9 @@ RUN \
 		/usr/local/lib/python3.9/site-packages/cv2/python-3.9/cv2.cpython-37m-x86_64-linux-gnu.so \
 		${CONDA_DIR}/lib/python3.9/site-packages/cv2.so \
   \
-	&& mv ${CONDA_DIR}/lib/libfontconfig.so.1 \
-		${CONDA_DIR}/lib/libfontconfig.so.1.ORIG \
-	&& mv ${CONDA_DIR}/lib/libpangoft2-1.0.so.0 \
-		${CONDA_DIR}/lib/libpangoft2-1.0.so.0.ORIG \
-	&& mv ${CONDA_DIR}/lib/libgio-2.0.so.0 \
-		${CONDA_DIR}/lib/libgio-2.0.so.0.ORIG \
+	&& mv ${CONDA_DIR}/lib/libfontconfig.so.1 ${CONDA_DIR}/lib/libfontconfig.so.1.ORIG \
+	&& mv ${CONDA_DIR}/lib/libpangoft2-1.0.so.0 ${CONDA_DIR}/lib/libpangoft2-1.0.so.0.ORIG \
+	&& mv ${CONDA_DIR}/lib/libgio-2.0.so.0 ${CONDA_DIR}/lib/libgio-2.0.so.0.ORIG \
   \
 	&& ln -s /usr/lib/x86_64-linux-gnu/libfontconfig.so.1 ${CONDA_DIR}/lib/ \
 	&& ln -s /usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0 ${CONDA_DIR}/lib/ \
