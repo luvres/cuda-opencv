@@ -15,7 +15,7 @@ RUN \
 	&& ln -s ${CONDA_DIR}/ /opt/conda \
 	&& rm Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh \
 	\
-	&& pip install --upgrade pip \
+	&& pip install --upgrade pip && pip install --no-cache numpy \
 	\
 	&& mkdir /root/notebooks \
   \
