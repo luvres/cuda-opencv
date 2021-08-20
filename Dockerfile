@@ -1,19 +1,20 @@
 FROM nvidia/cuda:10.2-cudnn7-devel
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
-ENV PATH=/usr/local/anaconda3/bin:$PATH
+ENV CONDA_DIR="/usr/local/conda/"
+ENV PATH="${CONDA_DIR}/bin:${PATH}"
 
 RUN \
 	apt-get update && apt-get install -y \
 		curl cmake libssl-dev \
   \
   # Anaconda3
-	&& ANACONDA_VERSION="2021.05" \
-	&& curl -L https://repo.continuum.io/archive/Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
-			-o Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
-	&& /bin/bash Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh -b -p /usr/local/anaconda3 \
-	&& ln -s /usr/local/anaconda3/ /opt/anaconda3 \
-	&& rm Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
+	&& CONDA_VERSION="2021.05" \	
+	&& curl -L https://repo.continuum.io/archive/Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh \
+			-o Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh \
+	&& /bin/bash Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p ${CONDA_DIR} \
+	&& ln -s ${CONDA_DIR}/ /opt/conda \
+	&& rm Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh \
   \
 	&& pip install --upgrade pip \
   \
@@ -67,28 +68,28 @@ RUN \
 		-DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2/ \
 		-DCUDA_ARCH_BIN='6.0 6.1 6.2 7.0 7.2 7.5' \
 		-DCUDA_ARCH_PTX="" \
-		-DPYTHON3_EXECUTABLE=/usr/local/anaconda3/bin/python \
-		-DPYTHON3_LIBRARY=/usr/local/anaconda3/lib/libpython3.8m.so \
-		-DPYTHON3_INCLUDE_DIRS=/usr/local/anaconda3/include \
-		-DPYTHON3_NUMPY_INCLUDE_DIRS=/usr/local/anaconda3/lib/python3.8/site-packages/numpy/core/include \
+		-DPYTHON3_EXECUTABLE=${CONDA_DIR}/bin/python \
+		-DPYTHON3_LIBRARY=${CONDA_DIR}/lib/libpython3.8m.so \
+		-DPYTHON3_INCLUDE_DIRS=${CONDA_DIR}/include \
+		-DPYTHON3_NUMPY_INCLUDE_DIRS=${CONDA_DIR}/lib/python3.8/site-packages/numpy/core/include \
   \
 	&& make -j$(nproc) \
 	&& make install \
   \
 	&& ln -s \
 		/usr/local/lib/python3.8/site-packages/cv2/python-3.8/cv2.cpython-37m-x86_64-linux-gnu.so \
-		/usr/local/anaconda3/lib/python3.8/site-packages/cv2.so \
+		${CONDA_DIR}/lib/python3.8/site-packages/cv2.so \
   \
-	&& mv /usr/local/anaconda3/lib/libfontconfig.so.1 \
-		/usr/local/anaconda3/lib/libfontconfig.so.1.ORIG \
-	&& mv /usr/local/anaconda3/lib/libpangoft2-1.0.so.0 \
-		/usr/local/anaconda3/lib/libpangoft2-1.0.so.0.ORIG \
-	&& mv /usr/local/anaconda3/lib/libgio-2.0.so.0 \
-		/usr/local/anaconda3/lib/libgio-2.0.so.0.ORIG \
+	&& mv ${CONDA_DIR}/lib/libfontconfig.so.1 \
+		${CONDA_DIR}/lib/libfontconfig.so.1.ORIG \
+	&& mv ${CONDA_DIR}/lib/libpangoft2-1.0.so.0 \
+		${CONDA_DIR}/lib/libpangoft2-1.0.so.0.ORIG \
+	&& mv ${CONDA_DIR}/lib/libgio-2.0.so.0 \
+		${CONDA_DIR}/lib/libgio-2.0.so.0.ORIG \
   \
-	&& ln -s /usr/lib/x86_64-linux-gnu/libfontconfig.so.1 /usr/local/anaconda3/lib/ \
-	&& ln -s /usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0 /usr/local/anaconda3/lib/ \
-	&& ln -s /usr/lib/x86_64-linux-gnu/libgio-2.0.so.0 /usr/local/anaconda3/lib/ \
+	&& ln -s /usr/lib/x86_64-linux-gnu/libfontconfig.so.1 ${CONDA_DIR}/lib/ \
+	&& ln -s /usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0 ${CONDA_DIR}/lib/ \
+	&& ln -s /usr/lib/x86_64-linux-gnu/libgio-2.0.so.0 ${CONDA_DIR}/lib/ \
   \
 	&& ln -s /usr/local/cuda-10.2 /usr/local/nvidia \
   \
