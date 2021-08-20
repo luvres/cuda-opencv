@@ -8,15 +8,16 @@ RUN \
 	apt-get update && apt-get install -y \
 		curl cmake libssl-dev \
   \
-	# Miniforge3
-	&& CONDA_VERSION="4.10.3-4" \
-	&& curl -L https://github.com/conda-forge/miniforge/releases/download/${CONDA_VERSION}/Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh -o Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh \
-	&& /bin/bash Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh -b -p ${CONDA_DIR} \
+  # Anaconda3
+	&& CONDA_VERSION="2021.05" \	
+	&& curl -L https://repo.continuum.io/archive/Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh \
+			-o Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh \
+	&& /bin/bash Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p ${CONDA_DIR} \
 	&& ln -s ${CONDA_DIR}/ /opt/conda \
-	&& rm Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh \
-	\
+	&& rm Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh \
+  \
 	&& pip install --upgrade pip \
-	\
+  \
 	&& mkdir /root/notebooks \
   \
   # cmake
@@ -68,16 +69,16 @@ RUN \
 		-DCUDA_ARCH_BIN='6.0 6.1 6.2 7.0 7.2 7.5' \
 		-DCUDA_ARCH_PTX="" \
 		-DPYTHON3_EXECUTABLE=${CONDA_DIR}/bin/python \
-		-DPYTHON3_LIBRARY=${CONDA_DIR}/lib/libpython3.9m.so \
+		-DPYTHON3_LIBRARY=${CONDA_DIR}/lib/libpython3.8m.so \
 		-DPYTHON3_INCLUDE_DIRS=${CONDA_DIR}/include \
-		-DPYTHON3_NUMPY_INCLUDE_DIRS=${CONDA_DIR}/lib/python3.9/site-packages/numpy/core/include \
+		-DPYTHON3_NUMPY_INCLUDE_DIRS=${CONDA_DIR}/lib/python3.8/site-packages/numpy/core/include \
   \
 	&& make -j$(nproc) \
 	&& make install \
   \
 	&& ln -s \
-		/usr/local/lib/python3.9/site-packages/cv2/python-3.9/cv2.cpython-37m-x86_64-linux-gnu.so \
-		${CONDA_DIR}/lib/python3.9/site-packages/cv2.so \
+		/usr/local/lib/python3.8/site-packages/cv2/python-3.8/cv2.cpython-37m-x86_64-linux-gnu.so \
+		${CONDA_DIR}/lib/python3.8/site-packages/cv2.so \
   \
 	&& mv ${CONDA_DIR}/lib/libfontconfig.so.1 \
 		${CONDA_DIR}/lib/libfontconfig.so.1.ORIG \
