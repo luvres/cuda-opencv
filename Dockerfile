@@ -65,7 +65,7 @@ RUN \
 		-DWITH_FFMPEG=ON \
 		-DWITH_CUDA=ON \
 		-DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2/ \
-		-DCUDA_ARCH_BIN='6.0 6.1 6.2 7.0 7.2 7.5' \
+		-DCUDA_ARCH_BIN='3.0 3.5 5.0 5.2 6.0 6.1 7.0 7.5' \
 		-DCUDA_ARCH_PTX="" \
 		-DPYTHON3_EXECUTABLE=${CONDA_DIR}/bin/python \
 		-DPYTHON3_LIBRARY=${CONDA_DIR}/lib/libpython3.9m.so \
