@@ -9,7 +9,7 @@ RUN \
 		curl cmake libssl-dev \
   \
 	# Miniforge3
-	&& CONDA_VERSION="4.10.3-3" \
+	&& CONDA_VERSION="4.10.3-4" \
 	&& curl -L https://github.com/conda-forge/miniforge/releases/download/${CONDA_VERSION}/Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh -o Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh \
 	&& /bin/bash Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh -b -p ${CONDA_DIR} \
 	&& ln -s ${CONDA_DIR}/ /opt/conda \
