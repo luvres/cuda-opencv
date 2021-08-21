@@ -8,12 +8,18 @@ RUN \
 	apt-get update && apt-get install -y \
 		curl cmake libssl-dev \
   \
+#	# Miniforge3
+#	&& CONDA_VERSION="4.10.3-4" \
+#	&& curl -L https://github.com/conda-forge/miniforge/releases/download/${CONDA_VERSION}/Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh -o Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh \
+#	&& /bin/bash Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh -b -p ${CONDA_DIR} \
+#	&& ln -s ${CONDA_DIR} /opt/conda \
+#	&& rm Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh \
+	\
 	# Miniforge3
-	&& CONDA_VERSION="4.10.3-4" \
-	&& curl -L https://github.com/conda-forge/miniforge/releases/download/${CONDA_VERSION}/Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh -o Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh \
-	&& /bin/bash Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh -b -p ${CONDA_DIR} \
+	&& curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge-pypy3-Linux-x86_64.sh -o Miniforge-pypy3-Linux-x86_64.sh \
+	&& /bin/bash Miniforge-pypy3-Linux-x86_64.sh -b -p ${CONDA_DIR} \
 	&& ln -s ${CONDA_DIR} /opt/conda \
-	&& rm Mambaforge-${CONDA_VERSION}-Linux-x86_64.sh \
+	&& rm Miniforge-pypy3-Linux-x86_64.sh \
 	\
 	&& pip install --upgrade pip && pip install --no-cache numpy \
 	\
@@ -35,7 +41,7 @@ RUN \
 	&& cd && rm cmake-${CMAKE_VERSION} -fR \
   \
   # OpenCV
-	&& OPENVC_VERSION="4.5.3" \
+	&& OPENVC_VERSION="4.4.0" \
 	&& curl -L https://github.com/opencv/opencv_contrib/archive/${OPENVC_VERSION}.tar.gz \
 			| tar xzf - -C /usr/local \
 	&& mv /usr/local/opencv_contrib* /usr/local/opencv_contrib \
@@ -70,16 +76,16 @@ RUN \
 		-DCUDA_ARCH_BIN='3.0 3.5 5.0 5.2 6.0 6.1 7.0 7.5' \
 		-DCUDA_ARCH_PTX="" \
 		-DPYTHON3_EXECUTABLE=${CONDA_DIR}/bin/python \
-		-DPYTHON3_LIBRARY=${CONDA_DIR}/lib/libpython3.9m.so \
+		-DPYTHON3_LIBRARY=${CONDA_DIR}/lib/libpython3.7m.so \
 		-DPYTHON3_INCLUDE_DIRS=${CONDA_DIR}/include \
-		-DPYTHON3_NUMPY_INCLUDE_DIRS=${CONDA_DIR}/lib/python3.9/site-packages/numpy/core/include \
+		-DPYTHON3_NUMPY_INCLUDE_DIRS=${CONDA_DIR}/lib/python3.7/site-packages/numpy/core/include \
   \
 	&& make -j$(nproc) \
 	&& make install \
   \
 	&& ln -s \
-		/usr/local/lib/python3.9/site-packages/cv2/python-3.9/cv2.cpython-37m-x86_64-linux-gnu.so \
-		${CONDA_DIR}/lib/python3.9/site-packages/cv2.so \
+		/usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so \
+		${CONDA_DIR}/lib/python3.7/site-packages/cv2.so \
   \
 	&& mv ${CONDA_DIR}/lib/libfontconfig.so.1 ${CONDA_DIR}/lib/libfontconfig.so.1.ORIG \
 	&& mv ${CONDA_DIR}/lib/libpangoft2-1.0.so.0 ${CONDA_DIR}/lib/libpangoft2-1.0.so.0.ORIG \

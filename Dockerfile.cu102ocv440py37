@@ -33,7 +33,7 @@ RUN \
 	&& cd && rm cmake-${CMAKE_VERSION} -fR \
   \
   # OpenCV
-	&& OPENVC_VERSION="4.4.0" \
+	&& OPENVC_VERSION="4.5.3" \
 	&& curl -L https://github.com/opencv/opencv_contrib/archive/${OPENVC_VERSION}.tar.gz \
 			| tar xzf - -C /usr/local \
 	&& mv /usr/local/opencv_contrib* /usr/local/opencv_contrib \
@@ -65,7 +65,7 @@ RUN \
 		-DWITH_FFMPEG=ON \
 		-DWITH_CUDA=ON \
 		-DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2/ \
-		-DCUDA_ARCH_BIN='6.0 6.1 6.2 7.0 7.2 7.5' \
+		-DCUDA_ARCH_BIN='3.0 3.5 5.0 5.2 6.0 6.1 7.0 7.5' \
 		-DCUDA_ARCH_PTX="" \
 		-DPYTHON3_EXECUTABLE=/usr/local/anaconda3/bin/python \
 		-DPYTHON3_LIBRARY=/usr/local/anaconda3/lib/libpython3.7m.so \
