@@ -92,22 +92,10 @@ http://localhost:8888/
 -----
 ### Build
 ```
-docker build -t izone/yolo:cuda-opencv-mamba .
+docker build -t izone/yolo:cuda-opencv-conda .
 ```
 ```
-docker build -t izone/yolo:cuda10.2-mamba4.10.3-4-ocv4.5.3 -f ./Dockerfile.cu102ocv453py39 .
-```
-```
-docker build -t izone/yolo:cuda-opencv-conda -f ./Dockerfile.conda .
-```
-```
-docker build -t izone/yolo:cuda10.2-conda2021.05-ocv4.5.3 -f ./Dockerfile.cu102ocv453py38 .
-```
-```
-docker build -t izone/yolo:cuda10.2-conda2021.05-ocv4.5.0 -f ./Dockerfile.cu102ocv450py38 .
-```
-```
-docker build -t izone/yolo:cuda10.2-conda2021.05-ocv4.4.0 -f ./Dockerfile.cu102ocv440py38 .
+docker build -t izone/yolo:cuda10.2-conda2020.02-ocv4.5.3 -f ./Dockerfile.cu102ocv453py37 .
 ```
 ```
 docker build -t izone/yolo:cuda10.2-conda2020.02-ocv4.4.0 -f ./Dockerfile.cu102ocv440py37 .
